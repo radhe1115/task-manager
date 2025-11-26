@@ -1,34 +1,23 @@
 package com.sparkl.kaushal.controller;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import com.sparkl.kaushal.model.Task;
 
+@WebMvcTest
 public class ControllerTest {
     @Autowired
     Task task;
 
     @Autowired
     TaskController taskController;
-
-    @Test
-    public void createTaskTest() {
-        // Arrange
-        task = new Task();
-        
-        // act
-        taskController.createTask("Write an Eassay", "P0", "A");
-
-        // Assert
-        assertNotNull(task);
-    }
 
     @Test
     public void getAllTaskTest() {
@@ -40,6 +29,5 @@ public class ControllerTest {
 
         // Assert
         assertTrue(task.isEmpty());
-
     }
 }

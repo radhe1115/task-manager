@@ -1,4 +1,4 @@
-package com.sparkl.kaushal;
+package com.sparkl.kaushal.service;
 
 public class Calculator {
   public int add(int a, int b) {

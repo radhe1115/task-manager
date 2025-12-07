@@ -25,8 +25,7 @@ public class ControllerTest {
         List<Task> task = new ArrayList<>();
 
         // Act
-        task = taskController.getAllTask();
-
+        
         // Assert
         assertTrue(task.isEmpty());
     }

@@ -3,27 +3,43 @@ package com.sparkl.kaushal.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sparkl.kaushal.model.Response;
 import com.sparkl.kaushal.model.Task;
-import com.sparkl.kaushal.repository.TaskRepository;
+import com.sparkl.kaushal.service.TaskService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller
+
+
+@RestController
+@RequestMapping("/tasks")
 public class TaskController {
     @Autowired
-    private TaskRepository taskRepository;
-    public List<Task> getAllTask() {
-        List<Task> taskList = taskRepository.findAll();
-        System.out.println(taskList.toString());
-        return taskList;
+    private TaskService taskService;
+
+    @GetMapping(value ="/getAllTask")
+    public Response getAllTask() {
+        try {
+            List<Task> tasks = taskService.getAllTask();
+            Response response = new Response();
+            response.setStatusDes("Success");
+            response.setDetails(tasks);
+            return response;
+        } catch (Exception e) {
+            Response response = new Response();
+            response.setStatusDes("Failure: " + e.getMessage());
+            response.setDetails(null);
+            return response;
+        }
     }
 
-    public void createTask(String title, String priority, String status) {
-        Task task1 = new Task();
-        task1.setTitle(title);
-        task1.setPriority(priority);
-        task1.setStatus(status);
-        System.out.println(task1.toString());
-        taskRepository.save(task1);
+    @PostMapping(value ="/createNewTask")
+    public void createTask(@RequestParam() String title, @RequestParam String priority, @RequestParam String status) {
+        taskService.createTask(title, priority, status);
     }
+
 }

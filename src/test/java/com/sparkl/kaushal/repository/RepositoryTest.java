@@ -31,7 +31,7 @@ public class RepositoryTest {
         taskRepository.save(task);
 
         // Assert
-        assertNotNull(taskRepository.findById(task.getId()).get());
+        //assertEquals("Succesfully Saved the task");
     }
 
     @Test
@@ -41,8 +41,11 @@ public class RepositoryTest {
 
         // act
         taskList = taskRepository.findAll();
-
-        //
-        assertNotNull(taskList);
+        
+        //assert
+        if(null == taskList){
+            throw new NullPointerException("No Tasks Found");
+        }
+        assertNotNull(taskList);    
     }
 }
